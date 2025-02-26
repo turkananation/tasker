@@ -7,11 +7,11 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveLayout(
-      compact: AboutScreenCompact(),
-      medium: AboutScreenMedium(),
-      expanded: AboutScreenExpanded(),
-      large: AboutScreenLarge(),
-      extraLarge: AboutScreenExtraLarge(),
+      compactLayout: AboutScreenCompact(),
+      mediumLayout: AboutScreenMedium(),
+      expandedLayout: AboutScreenExpanded(),
+      largeLayout: AboutScreenLarge(),
+      extraLargeLayout: AboutScreenExtraLarge(),
     );
   }
 }

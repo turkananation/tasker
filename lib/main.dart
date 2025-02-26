@@ -240,7 +240,7 @@ class TaskerApp extends StatelessWidget {
           );
         },
         '/tasker': (context) {
-          return TaskerScreen(title: 'Tasker');
+          return TaskerScreen();
         },
       },
     );
