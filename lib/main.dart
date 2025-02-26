@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart'
     hide PhoneAuthProvider, EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
-import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +28,11 @@ Future<void> main() async {
 
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
+    GoogleProvider(clientId: Constants.googleClientID),
     //emailLinkProviderConfig,
     //PhoneAuthProvider(),
-    GoogleProvider(clientId: Constants.googleClientID),
-    AppleProvider(),
-    FacebookProvider(clientId: Constants.facebookClientID),
+    //AppleProvider(),
+    //FacebookProvider(clientId: Constants.facebookClientID),
   ]);
 
   runApp(const TaskerApp());
@@ -97,11 +95,7 @@ class TaskerApp extends StatelessWidget {
 
                 switch (user) {
                   case User(emailVerified: true):
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/tasker',
-                      (route) => false,
-                    );
+                    Navigator.popAndPushNamed(context, '/tasker');
                   case User(emailVerified: false, email: final String _):
                     Navigator.pushNamed(context, '/verify-email');
                 }
