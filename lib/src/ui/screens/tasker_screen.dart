@@ -39,7 +39,7 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
 
   final List<Widget> _listOfBottomNavBarScreens = [
     HomeScreen(),
-    TaskListScreen(title: 'Tasks'),
+    TaskListScreenCompact(title: 'Tasks'),
     ProfileScreen(),
   ];
 
@@ -160,7 +160,7 @@ class _TaskerScreenMediumState extends State<TaskerScreenMedium> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreen(title: 'Tasks'),
+    TaskListScreenCompact(title: 'Tasks'),
     ProfileScreen(),
   ];
 
@@ -227,7 +227,7 @@ class _TaskerScreenExpandedState extends State<TaskerScreenExpanded> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreen(title: 'Tasks'),
+    TaskListScreenCompact(title: 'Tasks'),
     ProfileScreen(),
   ];
 
@@ -294,7 +294,7 @@ class _TaskerScreenLargeState extends State<TaskerScreenLarge> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreen(title: 'Tasks'),
+    TaskListScreenCompact(title: 'Tasks'),
     ProfileScreen(),
   ];
 
@@ -361,7 +361,7 @@ class _TaskerScreenExtraLargeState extends State<TaskerScreenExtraLarge> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreen(title: 'Tasks'),
+    TaskListScreenCompact(title: 'Tasks'),
     ProfileScreen(),
   ];
 
