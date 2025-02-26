@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "520589032132",
+    "project_id": "tasker-ap",
+    "storage_bucket": "tasker-ap.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520589032132:android:77d0d63c253901ae116791",
+        "android_client_info": {
+          "package_name": "app.tasker.tasker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520589032132-q2j3i695o6gvifhqr6ul34ik5fg5om14.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.tasker.tasker",
+            "certificate_hash": "659f176d15db72932ded3760beea7076ec149e47"
+          }
+        },
+        {
+          "client_id": "520589032132-kmpb804kcdlvba3lr165kt08bu0ge2lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIDsYKMlX33MturzPw5_U4GnHXTxz9NlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520589032132-kmpb804kcdlvba3lr165kt08bu0ge2lk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "520589032132-pd62q93aduilc5ht1spqtm8i8ao3icv8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.tasker.tasker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

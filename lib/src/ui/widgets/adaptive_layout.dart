@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-/// A widget that adapts its layout based on the available screen width. This
-/// widget conforms to the material design guidelines for responsive layouts as
-/// found here https://m3.material.io/foundations/layout/understanding-layout/overview.
-///
-/// This widget also follows the advice and recommendations of building
-/// adaptive and responsive app using Flutter as explained in the talk
-/// here https://www.youtube.com/watch?v=LeKLGzpsz9I&t=99s
+/* A widget that adapts its layout based on the available screen width. This
+ widget conforms to the material design guidelines for responsive layouts as
+ found here https://m3.material.io/foundations/layout/understanding-layout/overview.
+
+ This widget also follows the advice and recommendations of building
+ adaptive and responsive app using Flutter as explained in the talk
+ here https://www.youtube.com/watch?v=LeKLGzpsz9I&t=99s. */
 
 class AdaptiveLayout extends StatelessWidget {
   /// The widget to display on compact screens (width < 600).
