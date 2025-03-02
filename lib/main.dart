@@ -5,7 +5,10 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tasker/firebase_options.dart';
+import 'package:tasker/src/data/providers/theme_provider.dart';
 import 'package:tasker/src/ui/screens/tasker_screen.dart';
 import 'package:tasker/src/ui/widgets/decorations.dart';
 import 'package:tasker/src/utils/constants.dart';
@@ -26,6 +29,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  await Hive.initFlutter();
+  await Hive.openBox<bool>('theme');
+
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
     GoogleProvider(clientId: Constants.googleClientID),
@@ -35,7 +41,12 @@ Future<void> main() async {
     //FacebookProvider(clientId: Constants.facebookClientID),
   ]);
 
-  runApp(const TaskerApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => ThemeProvider())],
+      child: const TaskerApp(),
+    ),
+  );
 }
 
 class TaskerApp extends StatelessWidget {
@@ -64,11 +75,11 @@ class TaskerApp extends StatelessWidget {
       nav.pushReplacementNamed('/profile');
     });
 
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'Tasker',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
+      theme: themeProvider.currentTheme,
       debugShowCheckedModeBanner: kDebugMode ? true : false,
       initialRoute: initialRoute,
       routes: {

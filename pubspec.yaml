@@ -21,12 +21,15 @@ dependencies:
   firebase_ui_auth: ^1.16.1
   firebase_ui_oauth_google: ^1.4.1
   firebase_ui_localizations: ^1.13.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+  hive_generator: ^2.0.1
 
 flutter:
 

@@ -3,6 +3,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasker/src/ui/screens/about_screen.dart';
 import 'package:tasker/src/ui/screens/home_screen.dart';
+import 'package:tasker/src/ui/screens/settings_screen.dart';
 import 'package:tasker/src/ui/screens/task_list_screen.dart';
 import 'package:tasker/src/ui/widgets/adaptive_layout.dart';
 import 'package:tasker/src/utils/auth_state_observer.dart';
@@ -43,7 +44,7 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
     ProfileScreen(),
   ];
 
-  final List<Widget> _listOfDrawerScreens = [Placeholder(), AboutScreen()];
+  final List<Widget> _listOfDrawerScreens = [SettingsScreen(), AboutScreen()];
 
   final List<NavigationDestination> _destinations = [
     NavigationDestination(
@@ -87,10 +88,7 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       drawer: NavigationDrawer(
         elevation: 8,
         selectedIndex: _selectedDrawerScreen,
@@ -185,10 +183,7 @@ class _TaskerScreenMediumState extends State<TaskerScreenMedium> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: SafeArea(
         child: Row(
           children: [
