@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:tasker/src/ui/widgets/adaptive_layout.dart';
 
-class TaskListScreen extends StatefulWidget {
-  const TaskListScreen({super.key, required this.title});
+class TaskListScreen extends StatelessWidget {
+  const TaskListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveLayout(
+      compactLayout: TaskListScreenCompact(title: 'Tasks'),
+      mediumLayout: TaskListScreenMedium(),
+      expandedLayout: TaskListScreenExpanded(),
+      largeLayout: TaskListScreenLarge(),
+      extraLargeLayout: TaskListScreenExtraLarge(),
+    );
+  }
+}
+
+class TaskListScreenCompact extends StatefulWidget {
+  const TaskListScreenCompact({super.key, required this.title});
 
   final String title;
 
   @override
-  State<TaskListScreen> createState() => _TaskListScreenState();
+  State<TaskListScreenCompact> createState() => _TaskListScreenCompactState();
 }
 
-class _TaskListScreenState extends State<TaskListScreen> {
+class _TaskListScreenCompactState extends State<TaskListScreenCompact> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -21,10 +37,6 @@ class _TaskListScreenState extends State<TaskListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,5 +55,41 @@ class _TaskListScreenState extends State<TaskListScreen> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class TaskListScreenMedium extends StatelessWidget {
+  const TaskListScreenMedium({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class TaskListScreenExpanded extends StatelessWidget {
+  const TaskListScreenExpanded({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class TaskListScreenLarge extends StatelessWidget {
+  const TaskListScreenLarge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class TaskListScreenExtraLarge extends StatelessWidget {
+  const TaskListScreenExtraLarge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
