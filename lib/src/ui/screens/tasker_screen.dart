@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tasker/src/ui/screens/about_screen.dart';
 import 'package:tasker/src/ui/screens/home_screen.dart';
 import 'package:tasker/src/ui/screens/settings_screen.dart';
-import 'package:tasker/src/ui/screens/task_list_screen.dart';
+import 'package:tasker/src/ui/screens/task_screen.dart';
 import 'package:tasker/src/ui/widgets/adaptive_layout.dart';
 import 'package:tasker/src/utils/auth_state_observer.dart';
 
@@ -40,7 +40,7 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
 
   final List<Widget> _listOfBottomNavBarScreens = [
     HomeScreen(),
-    TaskListScreenCompact(title: 'Tasks'),
+    TaskScreen(),
     ProfileScreen(),
   ];
 
@@ -158,7 +158,7 @@ class _TaskerScreenMediumState extends State<TaskerScreenMedium> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreenCompact(title: 'Tasks'),
+    TaskScreen(),
     ProfileScreen(),
   ];
 
@@ -222,7 +222,7 @@ class _TaskerScreenExpandedState extends State<TaskerScreenExpanded> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreenCompact(title: 'Tasks'),
+    TaskScreen(),
     ProfileScreen(),
   ];
 
@@ -289,7 +289,7 @@ class _TaskerScreenLargeState extends State<TaskerScreenLarge> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreenCompact(title: 'Tasks'),
+    TaskScreen(),
     ProfileScreen(),
   ];
 
@@ -356,7 +356,7 @@ class _TaskerScreenExtraLargeState extends State<TaskerScreenExtraLarge> {
 
   final List<Widget> _listOfDestinationScreens = [
     HomeScreen(),
-    TaskListScreenCompact(title: 'Tasks'),
+    TaskScreen(),
     ProfileScreen(),
   ];
 
