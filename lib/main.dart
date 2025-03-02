@@ -148,7 +148,7 @@ class TaskerApp extends StatelessWidget {
             actionCodeSettings: actionCodeSettings,
             actions: [
               EmailVerifiedAction(() {
-                Navigator.pushReplacementNamed(context, '/profile');
+                Navigator.pushReplacementNamed(context, '/tasker');
               }),
               AuthCancelledAction((context) {
                 FirebaseUIAuth.signOut(context: context);
