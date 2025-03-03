@@ -64,8 +64,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '520589032132',
     projectId: 'tasker-ap',
     storageBucket: 'tasker-ap.firebasestorage.app',
-    androidClientId: '520589032132-q2j3i695o6gvifhqr6ul34ik5fg5om14.apps.googleusercontent.com',
-    iosClientId: '520589032132-pd62q93aduilc5ht1spqtm8i8ao3icv8.apps.googleusercontent.com',
+    androidClientId:
+        '520589032132-q2j3i695o6gvifhqr6ul34ik5fg5om14.apps.googleusercontent.com',
+    iosClientId:
+        '520589032132-pd62q93aduilc5ht1spqtm8i8ao3icv8.apps.googleusercontent.com',
     iosBundleId: 'app.tasker.tasker',
   );
 
@@ -75,8 +77,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '520589032132',
     projectId: 'tasker-ap',
     storageBucket: 'tasker-ap.firebasestorage.app',
-    androidClientId: '520589032132-q2j3i695o6gvifhqr6ul34ik5fg5om14.apps.googleusercontent.com',
-    iosClientId: '520589032132-pd62q93aduilc5ht1spqtm8i8ao3icv8.apps.googleusercontent.com',
+    androidClientId:
+        '520589032132-q2j3i695o6gvifhqr6ul34ik5fg5om14.apps.googleusercontent.com',
+    iosClientId:
+        '520589032132-pd62q93aduilc5ht1spqtm8i8ao3icv8.apps.googleusercontent.com',
     iosBundleId: 'app.tasker.tasker',
   );
 
@@ -89,5 +93,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'tasker-ap.firebasestorage.app',
     measurementId: 'G-ZKWWF5CLYG',
   );
-
 }

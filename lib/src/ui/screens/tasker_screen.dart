@@ -1,38 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tasker/src/ui/screens/about_screen.dart';
 import 'package:tasker/src/ui/screens/home_screen.dart';
 import 'package:tasker/src/ui/screens/settings_screen.dart';
 import 'package:tasker/src/ui/screens/task_screen.dart';
-import 'package:tasker/src/ui/widgets/adaptive_layout.dart';
+import 'package:tasker/src/ui/themes/tasker_colors.dart';
 import 'package:tasker/src/utils/auth_state_observer.dart';
 
-class TaskerScreen extends StatelessWidget {
-  const TaskerScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return AdaptiveLayout(
-      compactLayout: TaskerScreenCompact(title: 'Tasker'),
-      mediumLayout: TaskerScreenMedium(title: 'Tasker'),
-      expandedLayout: TaskerScreenExpanded(title: 'Tasker'),
-      largeLayout: TaskerScreenLarge(title: 'Tasker'),
-      extraLargeLayout: TaskerScreenExtraLarge(title: 'Tasker'),
-    );
-  }
-}
-
-class TaskerScreenCompact extends StatefulWidget {
-  const TaskerScreenCompact({super.key, required this.title});
+class TaskerScreen extends StatefulWidget {
+  const TaskerScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<TaskerScreenCompact> createState() => _TaskerScreenCompactState();
+  State<TaskerScreen> createState() => _TaskerScreenState();
 }
 
-class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
+class _TaskerScreenState extends State<TaskerScreen> {
   late AuthStateObserver _authStateObserver;
   int _selectedBottomBarScreen = 0;
   int _selectedDrawerScreen = 0;
@@ -44,7 +28,7 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
     ProfileScreen(),
   ];
 
-  final List<Widget> _listOfDrawerScreens = [SettingsScreen(), AboutScreen()];
+  final List<Widget> _listOfDrawerScreens = [SettingsScreen()];
 
   final List<NavigationDestination> _destinations = [
     NavigationDestination(
@@ -101,7 +85,7 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
         },
         children: [
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
+            decoration: BoxDecoration(color: TaskerColors.backgroundDark),
             accountName: Text(
               FirebaseAuth.instance.currentUser?.displayName ?? '',
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -121,11 +105,6 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
             icon: Icon(Icons.settings_display_outlined),
             selectedIcon: Icon(Icons.settings_display_rounded),
           ),
-          NavigationDrawerDestination(
-            label: Text("About App"),
-            icon: Icon(Icons.help_center_outlined),
-            selectedIcon: Icon(Icons.help_center_rounded),
-          ),
         ],
       ),
       body: _buildBody(_updatedByDrawer),
@@ -139,271 +118,6 @@ class _TaskerScreenCompactState extends State<TaskerScreenCompact> {
             _updatedByDrawer = false;
           });
         },
-      ),
-    );
-  }
-}
-
-class TaskerScreenMedium extends StatefulWidget {
-  const TaskerScreenMedium({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<TaskerScreenMedium> createState() => _TaskerScreenMediumState();
-}
-
-class _TaskerScreenMediumState extends State<TaskerScreenMedium> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _listOfDestinationScreens = [
-    HomeScreen(),
-    TaskScreen(),
-    ProfileScreen(),
-  ];
-
-  final List<NavigationRailDestination> _destinations = [
-    NavigationRailDestination(
-      icon: Icon(Icons.home_outlined),
-      selectedIcon: Icon(Icons.home_rounded),
-      label: Text('Home'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.task_outlined),
-      selectedIcon: Icon(Icons.task_rounded),
-      label: Text('Tasks'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.account_box_outlined),
-      selectedIcon: Icon(Icons.account_box_rounded),
-      label: Text('Account'),
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: SafeArea(
-        child: Row(
-          children: [
-            NavigationRail(
-              elevation: 8.0,
-              destinations: _destinations,
-              selectedIndex: _selectedIndex,
-              labelType: NavigationRailLabelType.all,
-              useIndicator: true,
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-            const VerticalDivider(thickness: 1, width: 2),
-            Expanded(child: _listOfDestinationScreens[_selectedIndex]),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TaskerScreenExpanded extends StatefulWidget {
-  const TaskerScreenExpanded({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<TaskerScreenExpanded> createState() => _TaskerScreenExpandedState();
-}
-
-class _TaskerScreenExpandedState extends State<TaskerScreenExpanded> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _listOfDestinationScreens = [
-    HomeScreen(),
-    TaskScreen(),
-    ProfileScreen(),
-  ];
-
-  final List<NavigationRailDestination> _destinations = [
-    NavigationRailDestination(
-      icon: Icon(Icons.home_outlined),
-      selectedIcon: Icon(Icons.home_rounded),
-      label: Text('Home'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.task_outlined),
-      selectedIcon: Icon(Icons.task_rounded),
-      label: Text('Tasks'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.account_box_outlined),
-      selectedIcon: Icon(Icons.account_box_rounded),
-      label: Text('Account'),
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: SafeArea(
-        child: Row(
-          children: [
-            NavigationRail(
-              elevation: 8.0,
-              destinations: _destinations,
-              selectedIndex: _selectedIndex,
-              labelType: NavigationRailLabelType.all,
-              useIndicator: true,
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-            const VerticalDivider(thickness: 1, width: 2),
-            Expanded(child: _listOfDestinationScreens[_selectedIndex]),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TaskerScreenLarge extends StatefulWidget {
-  const TaskerScreenLarge({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<TaskerScreenLarge> createState() => _TaskerScreenLargeState();
-}
-
-class _TaskerScreenLargeState extends State<TaskerScreenLarge> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _listOfDestinationScreens = [
-    HomeScreen(),
-    TaskScreen(),
-    ProfileScreen(),
-  ];
-
-  final List<NavigationRailDestination> _destinations = [
-    NavigationRailDestination(
-      icon: Icon(Icons.home_outlined),
-      selectedIcon: Icon(Icons.home_rounded),
-      label: Text('Home'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.task_outlined),
-      selectedIcon: Icon(Icons.task_rounded),
-      label: Text('Tasks'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.account_box_outlined),
-      selectedIcon: Icon(Icons.account_box_rounded),
-      label: Text('Account'),
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: SafeArea(
-        child: Row(
-          children: [
-            NavigationRail(
-              elevation: 8.0,
-              destinations: _destinations,
-              selectedIndex: _selectedIndex,
-              labelType: NavigationRailLabelType.all,
-              useIndicator: true,
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-            const VerticalDivider(thickness: 1, width: 2),
-            Expanded(child: _listOfDestinationScreens[_selectedIndex]),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TaskerScreenExtraLarge extends StatefulWidget {
-  const TaskerScreenExtraLarge({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<TaskerScreenExtraLarge> createState() => _TaskerScreenExtraLargeState();
-}
-
-class _TaskerScreenExtraLargeState extends State<TaskerScreenExtraLarge> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _listOfDestinationScreens = [
-    HomeScreen(),
-    TaskScreen(),
-    ProfileScreen(),
-  ];
-
-  final List<NavigationRailDestination> _destinations = [
-    NavigationRailDestination(
-      icon: Icon(Icons.home_outlined),
-      selectedIcon: Icon(Icons.home_rounded),
-      label: Text('Home'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.task_outlined),
-      selectedIcon: Icon(Icons.task_rounded),
-      label: Text('Tasks'),
-    ),
-    NavigationRailDestination(
-      icon: Icon(Icons.account_box_outlined),
-      selectedIcon: Icon(Icons.account_box_rounded),
-      label: Text('Account'),
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: SafeArea(
-        child: Row(
-          children: [
-            NavigationRail(
-              elevation: 8.0,
-              destinations: _destinations,
-              selectedIndex: _selectedIndex,
-              labelType: NavigationRailLabelType.all,
-              useIndicator: true,
-              onDestinationSelected: (int index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-            const VerticalDivider(thickness: 1, width: 2),
-            Expanded(child: _listOfDestinationScreens[_selectedIndex]),
-          ],
-        ),
       ),
     );
   }

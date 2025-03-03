@@ -114,6 +114,9 @@ class Task extends ChangeNotifier with HiveObjectMixin {
   @HiveField(5)
   List<Subtask> subtasks;
 
+  @HiveField(6)
+  String key;
+
   Task({
     required this.title,
     this.description = '',
@@ -121,6 +124,7 @@ class Task extends ChangeNotifier with HiveObjectMixin {
     this.priorityLevel = PriorityLevel.low,
     this.isCompleted = false,
     this.subtasks = const [],
+    this.key = '',
   });
 
   void toggleCompleted() {
