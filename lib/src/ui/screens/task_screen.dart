@@ -529,7 +529,12 @@ class TaskScreenState extends State<TaskScreen> {
               onPressed: () {
                 if (subtaskController.text.isNotEmpty) {
                   setState(() {
-                    task.subtasks.add(Subtask(name: subtaskController.text));
+                    // Create a new mutable list from the existing subtasks
+                    List<Subtask> mutableSubtasks = List.from(task.subtasks);
+                    mutableSubtasks.add(Subtask(name: subtaskController.text));
+                    task.subtasks =
+                        mutableSubtasks; // Assign the new mutable list back to task.subtasks
+
                     taskProvider.updateTask(task); // Save task with new subtask
                   });
                   Navigator.of(context).pop();
