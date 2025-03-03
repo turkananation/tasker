@@ -11,7 +11,7 @@ Tasker is your personal productivity sidekick\! 🦸‍♀️ Here's what you ca
 * ✍️ **Create, edit, and delete tasks:**  Manage your tasks with ease.
 * 🗂️ **Detailed task management:**  Organize every aspect of your tasks, including titles, descriptions, due dates, priority levels, and completion status.
 * 🔐 **Secure Authentication:**  Login using email and password, powered by Firebase Authentication.
-* 💾 **Local Storage:** Keep your tasks handy with local storage (using Hive or SQLite).
+* 💾 **Local Storage:** Keep your tasks handy with local storage (using Hive).
 * 📱 **Intuitive Navigation:**  Enjoy a smooth and easy-to-use interface.
 
 ## ✨ Features ✨
@@ -38,7 +38,7 @@ Tasker is your personal productivity sidekick\! 🦸‍♀️ Here's what you ca
 
 * 🗄️ **Local Storage:** Your tasks, always available\!
 
-    * **Persistent Data:** Uses Hive or SQLite for reliable local storage, ensuring your tasks are saved even when you close the app. 💾
+    * **Persistent Data:** Uses Hive for reliable local storage, ensuring your tasks are saved even when you close the app. 💾
 
 * 🎨 **UI & Navigation:** Beautiful and easy to navigate\!
 
@@ -59,12 +59,14 @@ Tasker is your personal productivity sidekick\! 🦸‍♀️ Here's what you ca
 
     * **Powerful Search & Filtering:**  Quickly locate and organize your tasks. 🔎  Filter by priority, due date, or completion status. (Implementation of search and filtering functionality to allow users to easily find and organize their tasks.)
 
-* ✨ **More Awesome Features Coming Soon\!** ✨ (Planned/In Progress)
+* ✨ **More Awesome in the App ** ✨
 
-    * **Subtasks:** Break down big tasks into smaller steps. 🧩
+    * **Subtasks:** Break down big tasks into smaller steps. 🧩 Click the tasks to expand the more details of a task.
     * **Dark Mode:** For comfortable tasking at night. 🌙
+
+* ✨ **Planned/In Progress Features Coming Soon\!** ✨
+
     * **Animations:**  Making the app even more lively and fun\! 🎬
-    * **Advanced Task Filtering:** Even more ways to sort and view your tasks\! 🎛️ (e.g., show only completed tasks, filter by due date or priority)
     * **Push Notifications:**  Get reminders and stay on track\! 🔔 (Optional)
     * **Cloud Synchronization:** Access your tasks across devices\! ☁️ (Optional)
     * **Calendar View:** See your tasks in a calendar format. 📅 (Optional)
@@ -80,8 +82,8 @@ Built with the best tools for the job\!
 
 * 💙 **Flutter:** For beautiful, cross-platform apps.
 * 🔥 **Firebase Authentication:** For secure and reliable user authentication.
-* 🗄️ **Hive or SQLite:** For fast and efficient local data storage.
-* ⚙️ **Provider, Riverpod, or BLoC:** For robust state management.
+* 🗄️ **Hive:** For fast and efficient local data storage.
+* ⚙️ **Provider:** For robust state management.
 
 ## 🚀 Getting Started 🚀
 
