@@ -108,6 +108,7 @@ Ready to run Tasker? Follow these simple steps:
 
     ```bash
     flutter pub get
+    flutter pub run build_runner build --delete-conflicting-outputs
     ```
 
 3.  🔥 **Set up Firebase:** Connect your app to Firebase\!
