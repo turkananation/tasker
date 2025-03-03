@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:tasker/src/data/models/priority_level.dart';
 import 'package:tasker/src/data/models/task.dart';
 
 class TaskProvider extends ChangeNotifier {

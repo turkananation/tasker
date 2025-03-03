@@ -24,6 +24,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.20.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -37,7 +38,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icons/
     - assets/images/
 
   fonts:
