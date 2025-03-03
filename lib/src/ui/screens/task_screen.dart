@@ -384,7 +384,7 @@ class TaskScreenState extends State<TaskScreen> {
                           value: priority,
                           child: Text(priority.name.toUpperCase()),
                         );
-                      }).toList(),
+                      }),
                     ],
                     onChanged: (PriorityLevel? newValue) {
                       setState(() {
