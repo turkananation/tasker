@@ -5,13 +5,11 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
 import 'package:tasker/firebase_options.dart';
-import 'package:tasker/src/data/models/task.dart';
 import 'package:tasker/src/data/providers/task_provider.dart';
 import 'package:tasker/src/data/providers/theme_provider.dart';
+import 'package:tasker/src/data/service/local_storage_service.dart';
 import 'package:tasker/src/ui/screens/tasker_screen.dart';
 import 'package:tasker/src/ui/widgets/decorations.dart';
 import 'package:tasker/src/utils/constants.dart';
@@ -31,15 +29,7 @@ final emailLinkProviderConfig = EmailLinkAuthProvider(
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  await Hive.initFlutter();
-  await Hive.openBox<bool>('theme');
-
-  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path);
-  Hive.registerAdapter(TaskAdapter());
-  Hive.registerAdapter(PriorityLevelAdapter()); // Register the enum adapter
-  await Hive.openBox<Task>('tasks');
+  await LocalStorageService.initLocalStorage();
 
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
@@ -263,7 +253,7 @@ class TaskerApp extends StatelessWidget {
           );
         },
         '/tasker': (context) {
-          return TaskerScreen();
+          return TaskerScreen(title: 'Tasker');
         },
       },
     );

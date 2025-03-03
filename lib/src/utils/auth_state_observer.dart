@@ -14,8 +14,9 @@ class AuthStateObserver {
     // Cancel any existing subscription before creating a new one.
     _authStateSubscription?.cancel();
 
-    _authStateSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    _authStateSubscription = FirebaseAuth.instance.authStateChanges().listen((
+      User? user,
+    ) {
       _handleAuthStateChange(user);
     });
   }
@@ -38,15 +39,10 @@ class AuthStateObserver {
         contentTextStyle: const TextStyle(color: Colors.white),
         padding: const EdgeInsets.all(5),
         content: const Text('You are being signed out!'),
-        leading: const CircularProgressIndicator(
-          color: Colors.white,
-        ),
+        leading: const CircularProgressIndicator(color: Colors.white),
         backgroundColor: Colors.black,
         actions: <Widget>[
-          TextButton(
-            onPressed: null,
-            child: const Text('Please Wait..'),
-          ),
+          TextButton(onPressed: null, child: const Text('Please Wait..')),
         ],
       ),
     );

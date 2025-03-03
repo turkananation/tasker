@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:tasker/src/ui/themes/tasker_dark_theme.dart';
-import 'package:tasker/src/ui/themes/tasker_light_theme.dart';
 
 class ThemeProvider with ChangeNotifier {
   late Box<bool> _themeBox;
@@ -21,7 +19,9 @@ class ThemeProvider with ChangeNotifier {
   bool get isDarkMode => _isDarkMode;
 
   ThemeData get currentTheme =>
-      _isDarkMode ? TaskerDarkTheme.darkTheme : TaskerLightTheme.lightTheme;
+      // _isDarkMode ? TaskerDarkTheme.darkTheme : TaskerLightTheme.lightTheme;
+      // Can use any custom theme but prefer using the system themes.
+      _isDarkMode ? ThemeData.dark() : ThemeData.light();
 
   void toggleTheme() {
     _isDarkMode = !_isDarkMode;

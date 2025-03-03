@@ -30,23 +30,13 @@ class TaskScreenState extends State<TaskScreen> {
       body: Consumer<TaskProvider>(
         builder: (context, taskProvider, child) {
           if (taskProvider.tasks.isEmpty) {
-            return Column(
-              children: [
-                _buildHeader(context, taskProvider),
-                const Center(child: Text('No tasks yet. Add a new task!')),
-              ],
-            );
+            return const Center(child: Text('No tasks yet. Add a new task!'));
           }
           return ListView.builder(
             itemCount: taskProvider.tasks.length,
             itemBuilder: (context, index) {
               final task = taskProvider.tasks[index];
-              return Column(
-                children: [
-                  _buildHeader(context, taskProvider),
-                  _buildTaskTile(context, taskProvider, task),
-                ],
-              );
+              return _buildTaskTile(context, taskProvider, task);
             },
           );
         },
@@ -105,34 +95,32 @@ class TaskScreenState extends State<TaskScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               if (task.subtasks.isEmpty) const Text('  No subtasks added.'),
-              ...task.subtasks
-                  .map(
-                    (subtask) => Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Row(
-                        children: [
-                          Checkbox(
-                            value: subtask.isCompleted,
-                            onChanged: (bool? newValue) {
-                              setState(() {
-                                subtask.toggleCompleted();
-                              });
-                            },
-                          ),
-                          Text(
-                            subtask.name,
-                            style: TextStyle(
-                              decoration:
-                                  subtask.isCompleted
-                                      ? TextDecoration.lineThrough
-                                      : TextDecoration.none,
-                            ),
-                          ),
-                        ],
+              ...task.subtasks.map(
+                (subtask) => Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: subtask.isCompleted,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            subtask.toggleCompleted();
+                          });
+                        },
                       ),
-                    ),
-                  )
-                  .toList(),
+                      Text(
+                        subtask.name,
+                        style: TextStyle(
+                          decoration:
+                              subtask.isCompleted
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -251,27 +239,25 @@ class TaskScreenState extends State<TaskScreen> {
                   child: Text(taskToEdit == null ? 'Add' : 'Save'),
                   onPressed: () {
                     if (titleController.text.isNotEmpty) {
-                      final task = Task(
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        dueDate: selectedDueDate,
-                        priorityLevel: selectedPriority,
-                        subtasks:
-                            taskToEdit?.subtasks ??
-                            [], // Preserve subtasks on edit
-                      );
                       if (taskToEdit == null) {
+                        // Adding a new task
+                        final task = Task(
+                          title: titleController.text,
+                          description: descriptionController.text,
+                          dueDate: selectedDueDate,
+                          priorityLevel: selectedPriority,
+                        );
                         taskProvider.addTask(task);
                       } else {
-                        task.isCompleted =
-                            taskToEdit
-                                .isCompleted; // Preserve completion status
-                        task.subtasks =
-                            taskToEdit.subtasks; // Preserve subtasks
-                        //task.key = taskToEdit.key; // Preserve Hive Key
-                        taskProvider.updateTask(task);
+                        // Editing an existing task - UPDATE EXISTING OBJECT
+                        taskToEdit.title = titleController.text;
+                        taskToEdit.description = descriptionController.text;
+                        taskToEdit.dueDate = selectedDueDate;
+                        taskToEdit.priorityLevel = selectedPriority;
+                        taskProvider.updateTask(
+                          taskToEdit,
+                        ); // Now updating the correct object
                       }
-
                       Navigator.of(context).pop();
                     }
                   },
@@ -395,38 +381,42 @@ class TaskScreenState extends State<TaskScreen> {
                       });
                     },
                   ),
-                  Row(
+                  Column(
                     children: [
                       const Text('Completion Status:'),
-                      const SizedBox(width: 16),
-                      ChoiceChip(
-                        label: const Text('All'),
-                        selected: _selectedCompletionFilter == null,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            _selectedCompletionFilter = null;
-                          });
-                        },
-                      ),
-                      const SizedBox(width: 8),
-                      ChoiceChip(
-                        label: const Text('Pending'),
-                        selected: _selectedCompletionFilter == false,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            _selectedCompletionFilter = false;
-                          });
-                        },
-                      ),
-                      const SizedBox(width: 8),
-                      ChoiceChip(
-                        label: const Text('Done'),
-                        selected: _selectedCompletionFilter == true,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            _selectedCompletionFilter = true;
-                          });
-                        },
+                      Row(
+                        children: [
+                          const SizedBox(width: 16),
+                          ChoiceChip(
+                            label: const Text('All'),
+                            selected: _selectedCompletionFilter == null,
+                            onSelected: (bool selected) {
+                              setState(() {
+                                _selectedCompletionFilter = null;
+                              });
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                          ChoiceChip(
+                            label: const Text('Pending'),
+                            selected: _selectedCompletionFilter == false,
+                            onSelected: (bool selected) {
+                              setState(() {
+                                _selectedCompletionFilter = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                          ChoiceChip(
+                            label: const Text('Done'),
+                            selected: _selectedCompletionFilter == true,
+                            onSelected: (bool selected) {
+                              setState(() {
+                                _selectedCompletionFilter = true;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
