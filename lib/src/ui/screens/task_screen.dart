@@ -115,8 +115,13 @@ class TaskScreenState extends State<TaskScreen> {
                         value: subtask.isCompleted,
                         onChanged: (bool? newValue) {
                           setState(() {
-                            subtask.toggleCompleted();
+                            subtask.isCompleted =
+                                newValue ??
+                                false; // Update the subtask's local state
                           });
+                          taskProvider.updateTask(
+                            task,
+                          ); // Update the parent Task in Hive
                         },
                       ),
                       Text(

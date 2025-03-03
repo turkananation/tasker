@@ -23,8 +23,7 @@ dependencies:
   firebase_ui_localizations: ^1.13.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-
-  intl: 0.19.0
+  intl: ^0.20.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
