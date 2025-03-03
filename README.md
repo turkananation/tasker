@@ -42,7 +42,7 @@ Tasker is your personal productivity sidekick\! 🦸‍♀️ Here's what you ca
 
 * 🎨 **UI & Navigation:** Beautiful and easy to navigate\!
 
-    * **Clean & Responsive UI:**  Designed for a delightful user experience on various screen sizes. 📱 💻  таблетка
+    * **Clean & Responsive UI:**  Designed for a delightful user experience on various screen sizes. 📱 💻
     * **Intuitive Navigation:**  Easily move around the app.
     * **Key Screens:**
         * **Login Screen:** Securely access your task list. 🔑
@@ -74,7 +74,16 @@ Tasker is your personal productivity sidekick\! 🦸‍♀️ Here's what you ca
 
 ## 🖼️ Screenshots 🖼️
 
-*(Add captivating screenshots of your app in action right here to give users a sneak peek\!)* 📸
+![Alt text](/screenshots/1.png?raw=true)
+![Alt text](/screenshots/2.png?raw=true)
+![Alt text](/screenshots/3.png?raw=true)
+![Alt text](/screenshots/4.png?raw=true)
+![Alt text](/screenshots/5.png?raw=true)
+![Alt text](/screenshots/6.png?raw=true)
+![Alt text](/screenshots/7.png?raw=true)
+![Alt text](/screenshots/8.png?raw=true)
+![Alt text](/screenshots/9.png?raw=true)
+![Alt text](/screenshots/10.png?raw=true)
 
 ## 🛠️ Technologies Used 🛠️
 

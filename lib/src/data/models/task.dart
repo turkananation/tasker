@@ -114,6 +114,7 @@ class Task extends ChangeNotifier with HiveObjectMixin {
   @HiveField(5)
   List<Subtask> subtasks;
 
+  @override
   @HiveField(6)
   String key;
 
