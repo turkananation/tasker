@@ -529,7 +529,7 @@ class TaskScreenState extends State<TaskScreen> {
               onPressed: () {
                 if (subtaskController.text.isNotEmpty) {
                   setState(() {
-                    // Create a new mutable list from the existing subtasks
+                    // Dart lists are immutable by default, so we create a new mutable list from the existing subtasks
                     List<Subtask> mutableSubtasks = List.from(task.subtasks);
                     mutableSubtasks.add(Subtask(name: subtaskController.text));
                     task.subtasks =
