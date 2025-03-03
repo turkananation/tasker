@@ -12,6 +12,7 @@ class LocalStorageService {
           await path_provider.getApplicationDocumentsDirectory();
       Hive.init(appDocumentDir.path);
       Hive.registerAdapter(TaskAdapter());
+      Hive.registerAdapter(SubtaskAdapter());
       Hive.registerAdapter(PriorityLevelAdapter()); // Register the enum adapter
       await Hive.openBox<Task>('tasks');
     } catch (e) {
