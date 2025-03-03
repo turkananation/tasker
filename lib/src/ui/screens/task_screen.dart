@@ -27,19 +27,30 @@ class TaskScreenState extends State<TaskScreen> {
     final taskProvider = Provider.of<TaskProvider>(context);
 
     return Scaffold(
-      body: Consumer<TaskProvider>(
-        builder: (context, taskProvider, child) {
-          if (taskProvider.tasks.isEmpty) {
-            return const Center(child: Text('No tasks yet. Add a new task!'));
-          }
-          return ListView.builder(
-            itemCount: taskProvider.tasks.length,
-            itemBuilder: (context, index) {
-              final task = taskProvider.tasks[index];
-              return _buildTaskTile(context, taskProvider, task);
-            },
-          );
-        },
+      body: Column(
+        // Added Column here
+        children: [
+          _buildHeader(context, taskProvider), // Inserted _buildHeader here
+          Expanded(
+            // Wrapped Consumer with Expanded
+            child: Consumer<TaskProvider>(
+              builder: (context, taskProvider, child) {
+                if (taskProvider.tasks.isEmpty) {
+                  return const Center(
+                    child: Text('No tasks yet. Add a new task!'),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: taskProvider.tasks.length,
+                  itemBuilder: (context, index) {
+                    final task = taskProvider.tasks[index];
+                    return _buildTaskTile(context, taskProvider, task);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -383,7 +394,10 @@ class TaskScreenState extends State<TaskScreen> {
                   ),
                   Column(
                     children: [
-                      const Text('Completion Status:'),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: const Text('Completion Status:'),
+                      ),
                       Row(
                         children: [
                           const SizedBox(width: 16),
