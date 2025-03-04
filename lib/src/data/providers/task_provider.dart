@@ -4,24 +4,24 @@ import 'package:tasker/src/data/models/priority_level.dart';
 import 'package:tasker/src/data/models/task.dart';
 
 class TaskProvider extends ChangeNotifier {
-  late Box<Task> _taskBox;
+  late Box<Task> taskBox;
   List<Task> _tasks = [];
   String _searchQuery = '';
   PriorityLevel? _filterPriority;
   bool? _filterCompletionStatus;
 
   TaskProvider() {
-    _openBox();
+    initialize();
   }
 
-  Future<void> _openBox() async {
-    _taskBox = await Hive.openBox<Task>('tasks');
-    _loadTasks();
+  Future<void> initialize() async {
+    taskBox = await Hive.openBox<Task>('tasks');
+    await loadTasks();
   }
 
-  void _loadTasks() {
-    _tasks = _taskBox.values.toList();
-    _applyFiltersAndSearch();
+  Future<void> loadTasks() async {
+    _tasks = taskBox.values.toList();
+    applyFiltersAndSearch();
   }
 
   List<Task> get tasks => _filteredTasks;
@@ -31,42 +31,42 @@ class TaskProvider extends ChangeNotifier {
   PriorityLevel? get filterPriority => _filterPriority;
   bool? get filterCompletionStatus => _filterCompletionStatus;
 
-  void addTask(Task task) {
-    _taskBox.add(task);
-    _loadTasks();
+  Future<void> addTask(Task task) async {
+    await taskBox.add(task);
+    await loadTasks();
   }
 
-  void updateTask(Task updatedTask) {
-    updatedTask.save();
-    _loadTasks();
+  Future<void> updateTask(Task updatedTask) async {
+    await updatedTask.save();
+    await loadTasks();
   }
 
-  void deleteTask(Task task) {
-    task.delete();
-    _loadTasks();
+  Future<void> deleteTask(Task task) async {
+    await task.delete();
+    await loadTasks();
   }
 
-  void toggleTaskCompletion(Task task) {
+  Future<void> toggleTaskCompletion(Task task) async {
     task.toggleCompleted();
-    _loadTasks();
+    await loadTasks();
   }
 
-  void setSearchQuery(String query) {
+  Future<void> setSearchQuery(String query) async {
     _searchQuery = query;
-    _applyFiltersAndSearch();
+    await applyFiltersAndSearch();
   }
 
-  void setFilterPriority(PriorityLevel? priority) {
+  Future<void> setFilterPriority(PriorityLevel? priority) async {
     _filterPriority = priority;
-    _applyFiltersAndSearch();
+    await applyFiltersAndSearch();
   }
 
-  void setFilterCompletionStatus(bool? status) {
+  Future<void> setFilterCompletionStatus(bool? status) async {
     _filterCompletionStatus = status;
-    _applyFiltersAndSearch();
+    await applyFiltersAndSearch();
   }
 
-  void _applyFiltersAndSearch() {
+  Future<void> applyFiltersAndSearch() async {
     _filteredTasks =
         _tasks.where((task) {
           final matchesSearch =
@@ -83,5 +83,11 @@ class TaskProvider extends ChangeNotifier {
           return matchesSearch && matchesPriority && matchesCompletion;
         }).toList();
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    taskBox.close();
+    super.dispose();
   }
 }
