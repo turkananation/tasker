@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:tasker/src/data/models/priority_level.dart';
+import 'package:tasker/src/data/models/subtask.dart';
 import 'package:tasker/src/data/models/task.dart';
 
 class TaskProvider extends ChangeNotifier {
@@ -15,6 +16,9 @@ class TaskProvider extends ChangeNotifier {
   }
 
   Future<void> initialize() async {
+    Hive.registerAdapter(TaskAdapter());
+    Hive.registerAdapter(SubtaskAdapter());
+    Hive.registerAdapter(PriorityLevelAdapter()); // Register the enum adapter
     taskBox = await Hive.openBox<Task>('tasks');
     await loadTasks();
   }
