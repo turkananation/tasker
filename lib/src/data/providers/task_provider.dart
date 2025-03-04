@@ -11,8 +11,14 @@ class TaskProvider extends ChangeNotifier {
   PriorityLevel? _filterPriority;
   bool? _filterCompletionStatus;
 
-  TaskProvider() {
-    initialize();
+  TaskProvider({Box<Task>? taskBox}) {
+    // Optional taskBox parameter
+    if (taskBox != null) {
+      this.taskBox = taskBox; // Use injected box if provided
+      loadTasks(); // Load tasks immediately if box is injected
+    } else {
+      initialize(); // Otherwise, initialize Hive and open box as before
+    }
   }
 
   Future<void> initialize() async {
