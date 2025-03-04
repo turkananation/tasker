@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
@@ -71,53 +73,59 @@ class _TaskerScreenState extends State<TaskerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      drawer: NavigationDrawer(
-        elevation: 8,
-        selectedIndex: _selectedDrawerScreen,
-        onDestinationSelected: (int index) {
-          setState(() {
-            _selectedDrawerScreen = index;
-            _updatedByDrawer = true;
-          });
-          Navigator.pop(context);
-        },
-        children: [
-          UserAccountsDrawerHeader(
-            decoration: BoxDecoration(color: TaskerColors.backgroundDark),
-            accountName: Text(
-              FirebaseAuth.instance.currentUser?.displayName ?? '',
-              style: TextStyle(fontWeight: FontWeight.bold),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        exit(0);
+      },
+      child: Scaffold(
+        appBar: AppBar(title: Text(widget.title)),
+        drawer: NavigationDrawer(
+          elevation: 8,
+          selectedIndex: _selectedDrawerScreen,
+          onDestinationSelected: (int index) {
+            setState(() {
+              _selectedDrawerScreen = index;
+              _updatedByDrawer = true;
+            });
+            Navigator.pop(context);
+          },
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: TaskerColors.backgroundDark),
+              accountName: Text(
+                FirebaseAuth.instance.currentUser?.displayName ?? '',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              accountEmail: Text(
+                FirebaseAuth.instance.currentUser?.email ?? '',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              currentAccountPicture: UserAvatar(
+                size: 75,
+                auth: FirebaseAuth.instance,
+                placeholderColor: Colors.grey,
+              ),
             ),
-            accountEmail: Text(
-              FirebaseAuth.instance.currentUser?.email ?? '',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            NavigationDrawerDestination(
+              label: Text("Settings"),
+              icon: Icon(Icons.settings_display_outlined),
+              selectedIcon: Icon(Icons.settings_display_rounded),
             ),
-            currentAccountPicture: UserAvatar(
-              size: 75,
-              auth: FirebaseAuth.instance,
-              placeholderColor: Colors.grey,
-            ),
-          ),
-          NavigationDrawerDestination(
-            label: Text("Settings"),
-            icon: Icon(Icons.settings_display_outlined),
-            selectedIcon: Icon(Icons.settings_display_rounded),
-          ),
-        ],
-      ),
-      body: _buildBody(_updatedByDrawer),
-      bottomNavigationBar: NavigationBar(
-        elevation: 8.0,
-        selectedIndex: _selectedBottomBarScreen,
-        destinations: _destinations,
-        onDestinationSelected: (index) {
-          setState(() {
-            _selectedBottomBarScreen = index;
-            _updatedByDrawer = false;
-          });
-        },
+          ],
+        ),
+        body: _buildBody(_updatedByDrawer),
+        bottomNavigationBar: NavigationBar(
+          elevation: 8.0,
+          selectedIndex: _selectedBottomBarScreen,
+          destinations: _destinations,
+          onDestinationSelected: (index) {
+            setState(() {
+              _selectedBottomBarScreen = index;
+              _updatedByDrawer = false;
+            });
+          },
+        ),
       ),
     );
   }
