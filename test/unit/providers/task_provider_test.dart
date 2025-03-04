@@ -42,6 +42,20 @@ class MockTaskBox extends Mock implements Box<Task> {
       (task) => task.title == key.title,
     ); // Simple key matching for mock
   }
+
+  @override
+  Task? get(dynamic key, {Task? defaultValue}) {
+    try {
+      final index = _tasks.indexWhere((task) => task.title == key);
+      if (index != -1) {
+        return _tasks[index];
+      }
+      return defaultValue;
+    } catch (e) {
+      print('Error in MockTaskBox.get: $e');
+      return defaultValue; // Return default value in case of error
+    }
+  }
 }
 
 void main() {
@@ -227,6 +241,24 @@ void main() {
             mockTaskBox._tasks[0].isCompleted,
             true,
           ); // Verify completion toggled in mock box
+        },
+      );
+    });
+
+    group('setErrorMessage', () {
+      test(
+        'setErrorMessage should set _errorMessage and notifyListeners',
+        () async {
+          bool listenerNotified = false;
+          taskProvider.addListener(() {
+            listenerNotified = true;
+          });
+
+          final testMessage = 'Test error message';
+          await taskProvider.setErrorMessage(testMessage);
+
+          expect(taskProvider.errorMessage, testMessage);
+          expect(listenerNotified, true);
         },
       );
     });

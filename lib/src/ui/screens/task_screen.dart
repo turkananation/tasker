@@ -20,6 +20,15 @@ class TaskScreenState extends State<TaskScreen> {
   bool? _selectedCompletionFilter;
 
   @override
+  void initState() {
+    super.initState();
+    _showErrorMsgIfNecessary(
+      context,
+      Provider.of<TaskProvider>(context, listen: false),
+    );
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -122,9 +131,9 @@ class TaskScreenState extends State<TaskScreen> {
                                 newValue ??
                                 false; // Update the subtask's local state
                           });
-                          taskProvider.updateTask(
-                            task,
-                          ); // Update the parent Task in Hive
+                          taskProvider.updateTask(task);
+                          // Update the parent Task in Hive
+                          _showErrorMsgIfNecessary(context, taskProvider);
                         },
                       ),
                       Text(
@@ -267,15 +276,15 @@ class TaskScreenState extends State<TaskScreen> {
                           priorityLevel: selectedPriority,
                         );
                         taskProvider.addTask(task);
+                        _showErrorMsgIfNecessary(context, taskProvider);
                       } else {
                         // Editing an existing task - UPDATE EXISTING OBJECT
                         taskToEdit.title = titleController.text;
                         taskToEdit.description = descriptionController.text;
                         taskToEdit.dueDate = selectedDueDate;
                         taskToEdit.priorityLevel = selectedPriority;
-                        taskProvider.updateTask(
-                          taskToEdit,
-                        ); // Now updating the correct object
+                        taskProvider.updateTask(taskToEdit);
+                        _showErrorMsgIfNecessary(context, taskProvider);
                       }
                       Navigator.of(context).pop();
                     }
@@ -319,6 +328,7 @@ class TaskScreenState extends State<TaskScreen> {
               child: const Text('Delete'),
               onPressed: () {
                 taskProvider.deleteTask(task);
+                _showErrorMsgIfNecessary(context, taskProvider);
                 Navigator.of(context).pop();
               },
             ),
@@ -539,6 +549,7 @@ class TaskScreenState extends State<TaskScreen> {
                         mutableSubtasks; // Assign the new mutable list back to task.subtasks
 
                     taskProvider.updateTask(task); // Save task with new subtask
+                    _showErrorMsgIfNecessary(context, taskProvider);
                   });
                   Navigator.of(context).pop();
                 }
@@ -548,5 +559,18 @@ class TaskScreenState extends State<TaskScreen> {
         );
       },
     );
+  }
+
+  void _showErrorMsgIfNecessary(
+    BuildContext context,
+    TaskProvider taskProvider,
+  ) {
+    final errorMessage = taskProvider.errorMessage;
+    if (errorMessage != null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(errorMessage)));
+      taskProvider.setErrorMessage(null); // Clear error message
+    }
   }
 }
