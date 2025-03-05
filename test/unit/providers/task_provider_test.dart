@@ -8,7 +8,7 @@ import 'package:tasker/src/data/models/subtask.dart';
 import 'package:tasker/src/data/models/task.dart';
 import 'package:tasker/src/data/providers/task_provider.dart';
 
-// **Crucial: MockTaskBox that directly overrides Box methods - BASED ON ThemeProvider TEST**
+// MockTaskBox that directly overrides Box methods
 class MockTaskBox extends Mock implements Box<Task> {
   final List<Task> _tasks = []; // Internal list to store tasks
   int _lastKey = 0; // To simulate key generation
