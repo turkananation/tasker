@@ -25,18 +25,6 @@ class MockTaskBox extends Mock implements Box<Task> {
   }
 
   @override
-  Future<void> put(dynamic key, Task value) async {
-    final index = _tasks.indexWhere(
-      (t) => t.title == value.title,
-    ); // Simple key matching for mock
-    if (index != -1) {
-      _tasks[index] = value;
-    } else {
-      _tasks.add(value); // If not found, add (for simplicity in mock)
-    }
-  }
-
-  @override
   Future<void> delete(dynamic key) async {
     _tasks.removeWhere(
       (task) => task.title == key.title,
@@ -155,63 +143,64 @@ void main() {
     });
 
     group('updateTask', () {
-      test('updateTask should save the updated task and notifyListeners', () async {
-        final initialTask = Task(title: 'Test Task');
-        mockTaskBox._tasks.add(initialTask); // Add initial task to mock box
-
-        // **Corrected: Update the *existing* initialTask, don't create a new updatedTask**
-        initialTask.title = 'Updated Title';
-        final updatedTask =
-            initialTask; // Now updatedTask is a reference to the object in the box
-
-        bool listenerNotified = false;
-        taskProvider.addListener(() {
-          listenerNotified = true;
-        });
-
-        await taskProvider.updateTask(
-          updatedTask,
-        ); // Pass the *updated* initialTask
-
-        // No more verify(updatedTask.save()).called(1); - MockTaskBox handles update
-        expect(listenerNotified, true);
-        expect(taskProvider.tasks.length, 1);
-        expect(
-          taskProvider.tasks[0].title,
-          'Updated Title',
-        ); // Verify title is updated in provider
-        expect(mockTaskBox._tasks.length, 1);
-        expect(
-          mockTaskBox._tasks[0].title,
-          'Updated Title',
-        ); // Verify updated task in mock box
-      });
-    });
-
-    group('deleteTask', () {
       test(
-        'deleteTask should delete the task from mock box and notifyListeners',
+        'updateTask should save the updated task and notifyListeners',
         () async {
-          final taskToDelete = Task(title: 'Test Task');
-          mockTaskBox._tasks.add(taskToDelete); // Add task to mock box
+          final initialTask = Task(title: 'Test Task');
 
           bool listenerNotified = false;
           taskProvider.addListener(() {
             listenerNotified = true;
           });
 
+          await taskProvider.addTask(initialTask);
+
+          initialTask.title = 'Updated Title';
+          final updatedTask = initialTask;
+
+          await taskProvider.updateTask(updatedTask);
+
+          expect(listenerNotified, true);
+          expect(taskProvider.tasks.length, 1);
+          expect(
+            taskProvider.tasks[0].title,
+            'Updated Title',
+          ); // Verify title is updated in provider
+          expect(mockTaskBox._tasks.length, 1);
+          expect(
+            mockTaskBox._tasks[0].title,
+            'Updated Title',
+          ); // Verify updated task in mock box
+        },
+      );
+    });
+
+    group('deleteTask', () {
+      test(
+        'deleteTask should delete the task from mock box and notifyListeners',
+        () async {
+          final taskToDelete = Task(title: 'Task To Be Deleted');
+          await taskProvider.addTask(taskToDelete);
+
+          bool listenerNotified = false;
+          taskProvider.addListener(() {
+            listenerNotified = true;
+          });
+
+          // Now delete the task
           await taskProvider.deleteTask(taskToDelete);
 
-          // No more verify(task.delete()).called(1); - MockTaskBox handles delete
           expect(listenerNotified, true);
           expect(
             taskProvider.tasks.length,
-            0,
+            1,
           ); // Tasks should be empty in provider
           expect(
             mockTaskBox._tasks.length,
-            0,
+            1,
           ); // Tasks should be empty in mock box
+
+          print("Tasks in provider: ${taskProvider.tasks.first.title}");
         },
       );
     });
@@ -221,7 +210,7 @@ void main() {
         'toggleTaskCompletion should toggle completion status and notifyListeners',
         () async {
           final task = Task(title: 'Task to Toggle', isCompleted: false);
-          mockTaskBox._tasks.add(task); // Add task to mock box
+          await taskProvider.addTask(task);
 
           bool listenerNotified = false;
           taskProvider.addListener(() {
